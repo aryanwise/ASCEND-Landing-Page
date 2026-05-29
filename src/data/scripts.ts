@@ -100,31 +100,31 @@ Rules:
 - Never moralize or lecture`;
 };
 
-// Pre-seeded fitness goal (shown with ⚠️ warning — 2 missed days)
-export const SEEDED_FITNESS_GOAL: Goal = {
-  id: 'demo-fitness-seeded',
-  area: 'fitness',
-  title: '10kg Home Gym Transformation',
+// Pre-seeded study goal (shown with ⚠️ warning — 2 missed days)
+// Using Study area so it doesn't duplicate with a user-created Fitness goal
+export const SEEDED_STUDY_GOAL: Goal = {
+  id: 'demo-study-seeded',
+  area: 'study',
+  title: 'AWS Solutions Architect Cert',
   missedDays: 2,
-  createdAt: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString(),
+  createdAt: new Date(Date.now() - 10 * 24 * 60 * 60 * 1000).toISOString(),
   plan: {
-    title: '10kg Home Gym Transformation',
-    summary: 'A 12-week progressive program built for home training. No gym required — just consistent effort and honest tracking.',
-    duration: '12 weeks',
+    title: 'AWS Solutions Architect Cert',
+    summary: 'A focused 10-week sprint for a working professional. Active recall and practice exams over passive reading.',
+    duration: '10 weeks',
     milestones: [
-      { week: 4,  title: 'Foundation built',      metric: 'Complete all sessions 3 weeks straight' },
-      { week: 8,  title: 'Visible progress',       metric: 'Strength up 20% from baseline' },
-      { week: 12, title: 'Transformation complete', metric: 'Target weight achieved' },
+      { week: 3,  title: 'Core services locked',  metric: 'Pass 3 mock sections without notes' },
+      { week: 6,  title: 'Architecture patterns', metric: '80%+ on practice exams' },
+      { week: 10, title: 'Exam ready',             metric: 'Pass the certification' },
     ],
     dailyTasks: [
-      { id: 'fit-s-1', name: 'Morning workout',      frequency: 'daily',      duration: '45 min', category: 'workout' },
-      { id: 'fit-s-2', name: 'Hit 8k steps',         frequency: 'daily',      duration: 'all day', category: 'habit'   },
-      { id: 'fit-s-3', name: 'Log meals',            frequency: 'daily',      duration: '5 min',  category: 'nutrition'},
-      { id: 'fit-s-4', name: 'Evening stretching',   frequency: 'weekly:3x',  duration: '15 min', category: 'recovery'},
+      { id: 'study-s-1', name: 'Study session',       frequency: 'weekly:Mon,Tue,Wed,Thu,Fri', duration: '60 min', category: 'study'   },
+      { id: 'study-s-2', name: 'Practice questions',  frequency: 'weekly:3x',                  duration: '30 min', category: 'study'   },
+      { id: 'study-s-3', name: 'Weekly review',       frequency: 'weekly:Sun',                 duration: '20 min', category: 'study'   },
     ],
     tips: [
-      'On low-energy days, do 15 minutes instead of skipping — showing up is the whole job.',
-      "Schedule your workout the night before. Deciding in the morning when you're tired always loses.",
+      'After a long workday review what you know — save new material for weekend mornings when you\'re fresh.',
+      'Teach what you learned to someone. If you can\'t explain it simply, you don\'t know it yet.',
     ],
   },
 };

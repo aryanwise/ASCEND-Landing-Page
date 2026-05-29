@@ -12,8 +12,9 @@ export default function HomePage() {
             <span style={{ width: 38, height: 38, borderRadius: 10, background: '#D9531E', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: 'Fraunces, serif', fontSize: 16, fontWeight: 700, color: '#fff' }}>A</span>
             <span style={{ fontSize: 15, fontWeight: 700, letterSpacing: '0.5px', color: '#1A1815' }}>ASCEND</span>
           </a>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 24 }}>
-            <a href="#how" style={{ fontSize: 13, color: '#6B6359', textDecoration: 'none', fontWeight: 500, display: 'none' }} className="md:block">How it works</a>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 22 }}>
+            <a href="#how" style={{ fontSize: 13, color: '#6B6359', textDecoration: 'none', fontWeight: 500 }}>How it works</a>
+            <a href="#features" style={{ fontSize: 13, color: '#6B6359', textDecoration: 'none', fontWeight: 500 }}>Features</a>
             <a href="#demo" style={{ fontSize: 13, color: '#6B6359', textDecoration: 'none', fontWeight: 500 }}>Try demo</a>
             <a href="#waitlist" style={{ background: '#1A1815', color: '#fff', padding: '9px 16px', borderRadius: 10, fontSize: 12, fontWeight: 600, textDecoration: 'none' }}>Join waitlist</a>
           </div>
@@ -88,6 +89,30 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* FEATURES */}
+      <section id="features" style={{ background: '#EBE5D6', padding: '100px 0' }}>
+        <div className="container">
+          <div style={{ fontSize: 11, fontFamily: 'JetBrains Mono, monospace', fontWeight: 700, color: '#D9531E', letterSpacing: '2px', textTransform: 'uppercase', marginBottom: 16 }}>What's inside</div>
+          <h2 style={{ fontFamily: 'Fraunces, serif', fontSize: 'clamp(30px, 4vw, 52px)', fontWeight: 700, letterSpacing: '-1.5px', lineHeight: 1.05, marginBottom: 40, maxWidth: 600 }}>Built for ambitious planners who live messily.</h2>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: 16 }}>
+            {[
+              { icon: '🎯', title: 'Multi-Area Goals', desc: '9 life areas, one goal per area. Fitness, study, career, mind, money — all in one place.' },
+              { icon: '📋', title: 'Daily Priorities', desc: 'Pin 1–3 must-dos. Separate from goal tasks. The rest is bonus.' },
+              { icon: '💬', title: 'Coach Chat', desc: 'Real AI that knows your goals and slip patterns. No generic motivation — honest, specific advice.' },
+              { icon: '📊', title: 'Insights Dashboard', desc: 'Goal health scores, recurring blockers, and your strongest days of the week.' },
+              { icon: '⏸️', title: 'Guilt-Free Pause', desc: 'Life happens. Pause a goal for a week without losing progress. Resume when ready.' },
+              { icon: '🔁', title: 'Adaptive Voice', desc: 'Drill Sergeant, Strategist, or Balanced — the AI tone adapts everywhere.' },
+            ].map(f => (
+              <div key={f.title} style={{ background: '#fff', borderRadius: 18, padding: '24px', border: '1px solid rgba(26,24,21,0.08)' }}>
+                <div style={{ fontSize: 28, marginBottom: 12 }}>{f.icon}</div>
+                <div style={{ fontFamily: 'Fraunces, serif', fontSize: 20, fontWeight: 700, marginBottom: 8, letterSpacing: '-0.3px' }}>{f.title}</div>
+                <div style={{ fontSize: 13, color: '#6B6359', lineHeight: 1.6 }}>{f.desc}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* INTERACTIVE DEMO */}
       <section id="demo" style={{ background: '#EBE5D6', padding: '100px 0' }}>
         <div className="container">
@@ -133,13 +158,45 @@ export default function HomePage() {
       </section>
 
       {/* FOOTER */}
-      <footer style={{ padding: '48px 0 32px', borderTop: '1px solid rgba(26,24,21,0.08)' }}>
-        <div className="container" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 16 }}>
-          <span style={{ fontSize: 13, color: '#6B6359' }}>© 2025 Ascend · Built with care, not shame.</span>
-          <div style={{ display: 'flex', gap: 24 }}>
-            {[['GitHub', 'https://github.com/aryanwise/ascend'], ['How it works', '#how'], ['Try demo', '#demo'], ['Waitlist', '#waitlist']].map(([label, href]) => (
-              <a key={label} href={href} style={{ fontSize: 13, color: '#6B6359', textDecoration: 'none', fontWeight: 500 }}>{label}</a>
-            ))}
+      <footer style={{ padding: '60px 0 40px', borderTop: '1px solid rgba(26,24,21,0.08)' }}>
+        <div className="container">
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: 32, marginBottom: 48 }}>
+            {/* Brand */}
+            <div style={{ flex: '1 1 200px' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 12 }}>
+                <span style={{ width: 34, height: 34, borderRadius: 9, background: '#D9531E', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: 'Fraunces, serif', fontSize: 14, fontWeight: 700, color: '#fff' }}>A</span>
+                <span style={{ fontSize: 14, fontWeight: 700, letterSpacing: '0.5px', color: '#1A1815' }}>ASCEND</span>
+              </div>
+              <p style={{ fontSize: 12, color: '#6B6359', lineHeight: 1.6, maxWidth: 220 }}>A cognitive partner, not another tracker. Built for people who plan ambitiously and live messily.</p>
+            </div>
+
+            {/* Links */}
+            <div style={{ display: 'flex', gap: 48, flexWrap: 'wrap' }}>
+              <div>
+                <div style={{ fontSize: 10, fontWeight: 700, letterSpacing: '1.5px', textTransform: 'uppercase', color: '#A8A095', marginBottom: 14 }}>Product</div>
+                {[['How it works', '#how'], ['Features', '#features'], ['Try demo', '#demo'], ['Join waitlist', '#waitlist']].map(([label, href]) => (
+                  <a key={label} href={href} style={{ display: 'block', fontSize: 13, color: '#6B6359', textDecoration: 'none', fontWeight: 500, marginBottom: 10 }}>{label}</a>
+                ))}
+              </div>
+              <div>
+                <div style={{ fontSize: 10, fontWeight: 700, letterSpacing: '1.5px', textTransform: 'uppercase', color: '#A8A095', marginBottom: 14 }}>Open source</div>
+                {[['GitHub', 'https://github.com/aryanwise/ascend'], ['Mobile app', 'https://github.com/aryanwise/ascend'], ['Backend API', 'https://github.com/aryanwise/ascend'], ['Report a bug', 'https://github.com/aryanwise/ascend/issues']].map(([label, href]) => (
+                  <a key={label} href={href} target="_blank" rel="noopener noreferrer" style={{ display: 'block', fontSize: 13, color: '#6B6359', textDecoration: 'none', fontWeight: 500, marginBottom: 10 }}>{label}</a>
+                ))}
+              </div>
+              <div>
+                <div style={{ fontSize: 10, fontWeight: 700, letterSpacing: '1.5px', textTransform: 'uppercase', color: '#A8A095', marginBottom: 14 }}>Stack</div>
+                {[['React Native + Expo', '#'], ['Python FastAPI', '#'], ['Supabase', '#'], ['Groq · Llama 3.3 70B', '#']].map(([label, href]) => (
+                  <a key={label} href={href} style={{ display: 'block', fontSize: 13, color: '#6B6359', textDecoration: 'none', fontWeight: 500, marginBottom: 10 }}>{label}</a>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* Bottom bar */}
+          <div style={{ borderTop: '1px solid rgba(26,24,21,0.08)', paddingTop: 24, display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 12 }}>
+            <span style={{ fontSize: 12, color: '#A8A095' }}>© 2025 Ascend · Built with care, not shame.</span>
+            <span style={{ fontSize: 12, color: '#A8A095' }}>MIT License · Free forever for personal use</span>
           </div>
         </div>
       </footer>

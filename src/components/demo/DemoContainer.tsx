@@ -1,11 +1,11 @@
 'use client';
-import { Home, Target, CalendarDays, MessageCircle, RotateCcw } from 'lucide-react';
+import { Home, Target, CheckSquare, MessageCircle, RotateCcw } from 'lucide-react';
 import { useDemoState } from '@/lib/useDemoState';
 import PhoneFrame from '@/components/shared/PhoneFrame';
 import { IntroScreen, PickAreaScreen, GoalTextScreen, AIDialogueScreen, PlanReviewScreen } from './SetupScreens';
 import HomeScreen from './HomeScreen';
 import GoalsScreen from './GoalsScreen';
-import DayPlanScreen from './DayPlanScreen';
+import TodaysTasksScreen from './TodaysTasksScreen';
 import CoachScreen from './CoachScreen';
 import RecalibrateModal from './RecalibrateModal';
 import type { AppTab } from '@/types';
@@ -17,7 +17,7 @@ interface DemoContainerProps {
 const TABS: { id: AppTab; label: string; icon: typeof Home }[] = [
   { id: 'home',    label: 'Home',    icon: Home },
   { id: 'goals',   label: 'Goals',   icon: Target },
-  { id: 'dayplan', label: 'Day Plan', icon: CalendarDays },
+  { id: 'dayplan', label: 'Tasks',   icon: CheckSquare },
   { id: 'coach',   label: 'Coach',   icon: MessageCircle },
 ];
 
@@ -26,15 +26,7 @@ export default function DemoContainer({ embedded = false }: DemoContainerProps) 
   const { state } = d;
 
   const isSetup = !['app', 'done'].includes(state.step);
-
-  // Recalibrate data
   const recalibrateGoal = state.recalibrateGoalId ? state.goals.find(g => g.id === state.recalibrateGoalId) : null;
-
-  const goalSummary = state.goals.map(g => ({
-    title: g.title,
-    area: g.area,
-    tasks: g.plan.dailyTasks.map(t => t.name),
-  }));
 
   const renderSetup = () => {
     switch (state.step) {
@@ -74,12 +66,16 @@ export default function DemoContainer({ embedded = false }: DemoContainerProps) 
             goals={state.goals}
             priorities={state.priorities}
             completions={state.completions}
+            dayPlan={state.dayPlan}
+            dayPlanLoading={state.dayPlanLoading}
             energy={state.energy}
             onAddPriority={d.addPriority}
             onTogglePriority={d.togglePriority}
             onRemovePriority={d.removePriority}
-            onToggleTask={d.toggleTask}
+            onToggleBlock={d.toggleDayBlock}
             onSetEnergy={d.setEnergy}
+            onSetPlan={d.setDayPlan}
+            onSetLoading={d.setDayPlanLoading}
           />
         )}
         {state.activeTab === 'goals' && (
@@ -90,11 +86,14 @@ export default function DemoContainer({ embedded = false }: DemoContainerProps) 
           />
         )}
         {state.activeTab === 'dayplan' && (
-          <DayPlanScreen
+          <TodaysTasksScreen
             goals={state.goals}
+            completions={state.completions}
             energy={state.energy}
             dayPlan={state.dayPlan}
-            loading={state.dayPlanLoading}
+            dayPlanLoading={state.dayPlanLoading}
+            onToggleTask={d.toggleTask}
+            onSetEnergy={d.setEnergy}
             onSetPlan={d.setDayPlan}
             onSetLoading={d.setDayPlanLoading}
             onToggleBlock={d.toggleDayBlock}
@@ -104,11 +103,12 @@ export default function DemoContainer({ embedded = false }: DemoContainerProps) 
           <CoachScreen
             goals={state.goals}
             chat={state.chat}
+            dayPlan={state.dayPlan}
             onAddChat={d.addChat}
+            onUpdatePlan={(blocks) => d.setDayPlan({ ...state.dayPlan!, blocks })}
           />
         )}
-
-        {/* Recalibrate modal — overlays Goals tab */}
+        {/* Recalibrate modal — slides up over Goals tab */}
         {recalibrateGoal && state.recalibrateTaskId && (
           <RecalibrateModal
             goal={recalibrateGoal}
@@ -122,22 +122,18 @@ export default function DemoContainer({ embedded = false }: DemoContainerProps) 
       </div>
 
       {/* Tab bar */}
-      <div style={{ display: 'flex', borderTop: '1px solid rgba(26,24,21,0.08)', background: 'rgba(248,245,239,0.95)', flexShrink: 0, paddingBottom: 6 }}>
+      <div style={{ display: 'flex', borderTop: '1px solid rgba(26,24,21,0.08)', background: 'rgba(248,245,239,0.97)', flexShrink: 0, paddingBottom: 8 }}>
         {TABS.map(tab => {
           const active = state.activeTab === tab.id;
           const Icon = tab.icon;
-          // Show warning dot on Goals if there's a missed goal
-          const hasWarning = tab.id === 'goals' && state.goals.some(g => (g.missedDays ?? 0) >= 2 && !g.plan.dailyTasks.some(t => t.intervened));
+          const hasWarning = tab.id === 'goals' &&
+            state.goals.some(g => (g.missedDays ?? 0) >= 2 && !g.plan.dailyTasks.some(t => t.intervened));
           return (
-            <button
-              key={tab.id}
-              onClick={() => d.setTab(tab.id)}
-              style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 3, paddingTop: 10, paddingBottom: 4, background: 'none', border: 'none', cursor: 'pointer', position: 'relative' }}
-            >
+            <button key={tab.id} onClick={() => d.setTab(tab.id)} style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 3, paddingTop: 10, paddingBottom: 4, background: 'none', border: 'none', cursor: 'pointer', position: 'relative' }}>
               {hasWarning && (
                 <div style={{ position: 'absolute', top: 8, right: '50%', marginRight: -14, width: 8, height: 8, borderRadius: '50%', background: '#D9531E', border: '1.5px solid #F8F5EF' }} />
               )}
-              <Icon size={20} color={active ? '#D9531E' : '#A8A095'} strokeWidth={active ? 2.5 : 2} />
+              <Icon size={19} color={active ? '#D9531E' : '#A8A095'} strokeWidth={active ? 2.5 : 2} />
               <span style={{ fontSize: 9, fontWeight: active ? 700 : 500, color: active ? '#D9531E' : '#A8A095', letterSpacing: '0.3px' }}>{tab.label}</span>
             </button>
           );
@@ -151,12 +147,8 @@ export default function DemoContainer({ embedded = false }: DemoContainerProps) 
       <PhoneFrame tilt={!embedded}>
         {isSetup ? renderSetup() : renderApp()}
       </PhoneFrame>
-
       {state.step !== 'intro' && (
-        <button
-          onClick={d.reset}
-          style={{ marginTop: 16, display: 'flex', alignItems: 'center', gap: 6, background: 'none', border: 'none', cursor: 'pointer', fontSize: 11, color: '#A8A095', padding: '6px 12px' }}
-        >
+        <button onClick={d.reset} style={{ marginTop: 14, display: 'flex', alignItems: 'center', gap: 6, background: 'none', border: 'none', cursor: 'pointer', fontSize: 11, color: '#A8A095', padding: '6px 12px' }}>
           <RotateCcw size={11} /> Restart demo
         </button>
       )}

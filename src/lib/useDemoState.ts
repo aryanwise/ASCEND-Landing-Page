@@ -1,7 +1,7 @@
 'use client';
 import { useReducer, useCallback } from 'react';
 import type { Goal, Priority, ChatMessage, DemoStep, AppTab, DialogueMessage, DayPlan, AreaId } from '@/types';
-import { SEEDED_FITNESS_GOAL } from '@/data/scripts';
+import { SEEDED_STUDY_GOAL } from '@/data/scripts';
 
 interface DemoState {
   step: DemoStep;
@@ -43,6 +43,7 @@ type Action =
   | { type: 'SET_ENERGY'; level: 'low' | 'medium' | 'high' }
   | { type: 'ADD_CHAT'; msg: ChatMessage }
   | { type: 'SET_DAY_PLAN'; plan: DayPlan }
+  | { type: 'UPDATE_DAY_BLOCKS'; blocks: DayPlan['blocks'] }
   | { type: 'SET_DAY_PLAN_LOADING'; loading: boolean }
   | { type: 'TOGGLE_DAY_BLOCK'; index: number }
   | { type: 'OPEN_RECALIBRATE'; goalId: string; taskId: string }
@@ -86,7 +87,7 @@ function reducer(s: DemoState, a: Action): DemoState {
       return {
         ...s,
         goals: s.goals.length === 0
-          ? [a.goal, SEEDED_FITNESS_GOAL]
+          ? [a.goal, SEEDED_STUDY_GOAL]
           : [...s.goals.filter(g => g.id !== a.goal.id), a.goal],
       };
     case 'ADD_PRIORITY': {
@@ -110,6 +111,9 @@ function reducer(s: DemoState, a: Action): DemoState {
     case 'SET_ENERGY': return { ...s, energy: a.level };
     case 'ADD_CHAT': return { ...s, chat: [...s.chat, a.msg] };
     case 'SET_DAY_PLAN': return { ...s, dayPlan: a.plan, dayPlanLoading: false };
+    case 'UPDATE_DAY_BLOCKS':
+      if (!s.dayPlan) return s;
+      return { ...s, dayPlan: { ...s.dayPlan, blocks: a.blocks } };
     case 'SET_DAY_PLAN_LOADING': return { ...s, dayPlanLoading: a.loading };
     case 'TOGGLE_DAY_BLOCK':
       if (!s.dayPlan) return s;

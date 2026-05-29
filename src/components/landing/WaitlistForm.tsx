@@ -1,7 +1,7 @@
 'use client';
 import { useState } from 'react';
 
-const FORMSPREE_URL = 'https://formspree.io/f/YOUR_FORM_ID';
+const FORMSPREE_URL = 'https://formspree.io/f/mnjrjbag';
 
 export default function WaitlistForm() {
   const [email, setEmail] = useState('');
