@@ -634,7 +634,7 @@ export default function AssistantDemo() {
 
         {/* Bottom CTA */}
         <div style={{ textAlign: 'center', padding: '8px 20px 40px' }}>
-          <a href="#waitlist" style={{ textDecoration: 'none' }}>
+          <a href="/#waitlist" style={{ textDecoration: 'none' }}>
             <button style={{
               padding: '12px 24px',
               background: '#1A1815',
