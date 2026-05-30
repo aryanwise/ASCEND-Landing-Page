@@ -212,3 +212,18 @@
     transform-origin: top center;
   }
 }
+
+/* Prevent iOS auto-zoom on input focus */
+input,
+textarea,
+select {
+  font-size: 16px !important;
+}
+
+/* Prevent layout shift when keyboard opens on Android */
+@media (max-height: 500px) {
+  .phone-frame-outer {
+    transform: scale(0.75);
+    transform-origin: top center;
+  }
+}
