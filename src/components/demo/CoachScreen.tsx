@@ -129,9 +129,7 @@ const selectCommand = () => {
         <div style={{ flex: 1 }}>
           <div style={{ fontFamily: 'Fraunces, serif', fontSize: 17, fontWeight: 700, color: '#1A1815' }}>Coach</div>
           <div style={{ fontSize: 10, color: '#A8A095', marginTop: 1 }}>
-            Knows your goals · type{' '}
-            <code style={{ background: '#FFE9DD', color: '#D9531E', padding: '1px 5px', borderRadius: 4, fontSize: 9, fontWeight: 700 }}>@modify</code>
-            {' '}to change your plan
+            Knows your goals · type <strong style={{ color: '#D9531E' }}>@</strong> to modify, build, reschedule & more
           </div>
         </div>
       </div>

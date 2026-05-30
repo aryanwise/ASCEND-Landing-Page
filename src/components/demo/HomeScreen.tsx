@@ -246,6 +246,13 @@ export default function HomeScreen({
               <span style={{ fontSize: 11, color: '#6B6359', lineHeight: 1.5 }}>{dayPlan.advice}</span>
             </div>
 
+            {/* Disclaimer */}
+            <div style={{ display: 'flex', alignItems: 'center', gap: 8, background: '#FFE9DD', borderRadius: 99, padding: '5px 12px', marginBottom: 10, width: 'fit-content' }}>
+              <span style={{ width: 5, height: 5, borderRadius: '50%', background: '#D9531E', flexShrink: 0 }} />
+              <span style={{ fontSize: 10, fontWeight: 700, color: '#D9531E', letterSpacing: '0.5px' }}>
+                DEMO · Real app syncs your Goals + Google Calendar for full context
+              </span>
+            </div>
             {dayPlan.blocks.map((block, i) => (
               <button key={i} onClick={() => onToggleBlock(i)} style={{ display: 'flex', alignItems: 'center', gap: 10, width: '100%', background: block.done ? '#FBF9F4' : '#fff', border: '1px solid rgba(26,24,21,0.08)', borderRadius: 12, padding: '10px 12px', marginBottom: 6, cursor: 'pointer', textAlign: 'left' }}>
                 <div style={{ textAlign: 'right', width: 38, flexShrink: 0 }}>
