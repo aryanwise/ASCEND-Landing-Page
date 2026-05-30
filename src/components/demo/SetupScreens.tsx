@@ -10,19 +10,35 @@ import type { AreaId, Goal, DialogueMessage } from '@/types';
 export function IntroScreen({ onStart }: { onStart: () => void }) {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100%', padding: '0 24px', textAlign: 'center' }}>
-      <div style={{ marginBottom: 16, display: 'inline-flex', alignItems: 'center', gap: 6, background: '#FFE9DD', borderRadius: 99, padding: '6px 14px' }}>
+
+      {/* Disclaimer banner */}
+      <div style={{ width: '100%', background: '#1A1815', borderRadius: 14, padding: '12px 16px', marginBottom: 28, textAlign: 'left' }}>
+        <div style={{ fontSize: 10, fontWeight: 700, color: '#D9531E', letterSpacing: '1.5px', textTransform: 'uppercase', marginBottom: 6 }}>
+          ⚠️ Demo Notice
+        </div>
+        <p style={{ fontSize: 12, color: 'rgba(255,255,255,0.7)', lineHeight: 1.6, margin: 0 }}>
+          This demo uses <strong style={{ color: '#fff' }}>pre-built scripts</strong> to simulate the experience. The real Ascend replaces all of this with live AI — personalised to your goals, history, and patterns.
+        </p>
+      </div>
+
+      {/* Badge */}
+      <div style={{ marginBottom: 16, display: 'inline-flex', alignItems: 'center', gap: 8, background: '#FFE9DD', borderRadius: 99, padding: '6px 14px' }}>
         <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#D9531E', animation: 'pulse 2s infinite' }} />
         <span style={{ fontSize: 10, fontWeight: 700, letterSpacing: '1.5px', textTransform: 'uppercase', color: '#D9531E' }}>Interactive Demo</span>
       </div>
-      <h2 style={{ fontFamily: 'Fraunces, Georgia, serif', fontSize: 26, fontWeight: 700, letterSpacing: '-0.5px', color: '#1A1815', marginBottom: 10, lineHeight: 1.15 }}>
+
+      <h2 style={{ fontFamily: 'Fraunces, serif', fontSize: 26, fontWeight: 700, letterSpacing: '-0.5px', color: '#1A1815', marginBottom: 10, lineHeight: 1.15 }}>
         Try Ascend.<br />No signup needed.
       </h2>
+
       <p style={{ fontSize: 13, color: '#6B6359', lineHeight: 1.6, marginBottom: 28, maxWidth: 280 }}>
         Create a real goal, get an AI-built plan, miss a task, and watch Ascend recalibrate — in under 2 minutes.
       </p>
-      <button onClick={onStart} style={{ display: 'flex', alignItems: 'center', gap: 8, background: '#D9531E', color: '#fff', border: 'none', borderRadius: 14, padding: '14px 28px', fontSize: 14, fontWeight: 700, cursor: 'pointer', boxShadow: '0 4px 20px rgba(217,83,30,0.35)', width: '100%', justifyContent: 'center' }}>
+
+      <button onClick={onStart} style={{ display: 'flex', width: '100%', alignItems: 'center', justifyContent: 'center', gap: 8, background: '#D9531E', color: '#fff', border: 'none', borderRadius: 14, padding: '16px 28px', fontSize: 15, fontWeight: 700, cursor: 'pointer', boxShadow: '0 4px 20px rgba(217,83,30,0.35)' }}>
         <Sparkles size={16} /> Start the demo
       </button>
+
       <p style={{ marginTop: 14, fontSize: 10, color: '#A8A095' }}>No data saved · Refreshes reset the demo</p>
     </div>
   );

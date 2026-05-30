@@ -170,7 +170,7 @@ export default function HomeScreen({
                 <div>
                   <div style={{ fontSize: 13, fontWeight: 700, color: '#1A1815' }}>{dayPlan ? 'Regenerate Day Plan' : 'Generate Day Plan'}</div>
                   <div style={{ fontSize: 10, color: '#6B6359', marginTop: 1 }}>
-                    {dayPlan ? 'Adjust based on how you feel now' : 'Tap to generate · questions are optional'}
+                    {dayPlan ? 'Adjust based on how you feel now' : 'Tap to generate · Questions are optional'}
                   </div>
                 </div>
               </div>
